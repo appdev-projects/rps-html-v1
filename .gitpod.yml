@@ -1,0 +1,18 @@
+image: jelaniwoods/appdev2021-rps-html@sha256:c548d4b9d7758bf9a1ca30848df06f852a52b4f7be76707cba7e274e44b037a1
+
+tasks:
+  - init: bin/setup
+ports:
+  - port: 3000
+    onOpen: open-preview
+  - port: 9515
+    onOpen: ignore
+
+
+vscode:
+  extensions:
+    - shd101wyy.markdown-preview-enhanced
+    - vortizhe.simple-ruby-erb
+    - CraigMaslowski.erb
+    - Vense.rails-snippets
+    - wingrunr21.vscode-ruby
