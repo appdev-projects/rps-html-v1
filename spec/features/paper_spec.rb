@@ -104,9 +104,17 @@ describe "/paper" do
   it "has all 'Play'links on a separate line", :points => 3 do
     visit "/paper"
 
-    expect(page).to have_tag("div") { with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/) }
-    expect(page).to have_tag("div") { with_tag("a", :with => { :href => "/paper" }, :text => /Play Paper/) }
-    expect(page).to have_tag("div") { with_tag("a", :with => { :href => "/scissors" }, :text => /Play Scissors/) }
+    expect(page).to have_tag("body") do
+      with_tag("div") do
+        with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
+      end
+      with_tag("div") do
+         with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
+      end
+      with_tag("div") do
+         with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
+      end
+    end
   end
 end
 
@@ -155,5 +163,44 @@ describe "/paper" do
     visit "/paper"
     
     expect(page).to have_selector("h2", { :text => "We tied!" } )
+  end
+end
+
+describe "/paper" do
+  it "has all elements in the right order", :points => 20 do
+    visit "/paper"
+    
+    first_line = page.html.strip.downcase.first(15)
+    doctype = "<!doctype html>"
+    expect(first_line.include?(doctype) ).to be true
+    
+    expect(page).to have_tag("html") do
+      with_tag("head") do
+        with_tag("title", :text => "You played paper!" )
+        with_tag("meta", :with => { :charset => "utf-8" } )
+      end
+      
+      with_tag("body") do
+        with_tag("div:first-child") do
+          with_tag("a", :count => 1 )
+          with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
+        end
+        with_tag("div:nth-child(2)") do
+          with_tag("a", :count => 1 )
+          with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
+        end
+        with_tag("div:nth-child(3)") do
+          with_tag("a", :count => 1 )
+          with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
+        end
+        
+        with_tag("div:nth-child(3) + h2", :seen => "We played paper!")
+        with_tag("h2:nth-of-type(2)", :seen => "They played paper!")
+        with_tag("h2:nth-of-type(3)", :seen => "We tied!")
+        
+        with_tag("h2:nth-of-type(3) + a", :with => { :href => "/"}, :seen => "Rules")
+
+      end
+    end
   end
 end

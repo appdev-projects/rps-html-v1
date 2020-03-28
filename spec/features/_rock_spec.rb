@@ -105,10 +105,16 @@ describe "/rock" do
   it "has all 'Play'links on a separate line", :points => 3 do
     visit "/rock"
 
-    within "body" do
-      expect(page).to have_tag("div") { with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/) }
-      expect(page).to have_tag("div") { with_tag("a", :with => { :href => "/paper" }, :text => /Play Paper/) }
-      expect(page).to have_tag("div") { with_tag("a", :with => { :href => "/scissors" }, :text => /Play Scissors/) }
+    expect(page).to have_tag("body") do
+      with_tag("div") do
+        with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
+      end
+      with_tag("div") do
+         with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
+      end
+      with_tag("div") do
+         with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
+      end
     end
   end
 end
