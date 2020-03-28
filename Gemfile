@@ -44,6 +44,7 @@ gem 'sprockets', '< 4'
 gem 'sassc-rails'
 gem 'execjs'
 gem 'therubyracer', platforms: :ruby
+
 group :development, :test do
   gem 'awesome_print'
   gem 'dotenv-rails'
@@ -68,9 +69,9 @@ group :test do
   gem 'factory_bot_rails'
   gem 'rspec-rails'
   gem 'webmock'
-  gem 'rspec-html-matchers'
 end
 
+gem 'rspec-html-matchers'
 group :production do
   gem 'pg'
   gem 'rails_12factor'
