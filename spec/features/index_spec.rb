@@ -539,3 +539,116 @@ describe "The home page" do
     end
   end
 end
+
+
+describe "The home page" do
+  it "has a paragraph with text: 'Originating from China and Japan...' ", :points => 1 do
+    visit "/"
+
+    text = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"./
+    
+    expect(page).to have_tag("p", :seen => text)
+  end
+end
+
+describe "The home page" do
+  it "has an image with rock paper scissors svg from the target", :points => 1 do
+    visit "/"
+    
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
+    
+    expect(page).to have_tag("img", :with => { :src => image})
+  end
+end
+
+describe "The home page" do
+  it "has a paragraph with text: 'A chart showing how...' ", :points => 1 do
+    visit "/"
+    
+    text = /A chart showing how the three game elements interact/
+    
+    expect(page).to have_tag("p", :seen => text)
+  end
+end
+
+describe "The home page" do
+  it "has a div with the rock paper scissors image and paragraph with text: 'A chart showing how...' inside", :points => 5 do
+    visit "/"
+    
+    text = /A chart showing how the three game elements interact/
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
+    
+    expect(page).to have_tag("div") do
+      with_tag("img", :with => { :src => image } )
+      with_tag("p", :seen => text )
+    end
+  end
+end
+
+describe "The home page" do
+  it "has an image with Kitsune-ken svg from the target", :points => 1 do
+    visit "/"
+    
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
+    
+    expect(page).to have_tag("img", :with => { :src => image})
+  end
+end
+
+describe "The home page" do
+  it "has a paragraph with text: 'Kitsune-ken was a...' ", :points => 1 do
+    visit "/"
+    
+    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant./
+    
+    expect(page).to have_tag("p", :seen => text)
+  end
+end
+
+describe "The home page" do
+  it "has a div with the kistune-ken image and paragraph with text: 'Kitsune-ken was a...' inside", :points => 5 do
+    visit "/"
+    
+    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant./
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
+    
+    expect(page).to have_tag("div") do
+      with_tag("img", :with => { :src => image } )
+      with_tag("p", :seen => text )
+    end
+  end
+end
+
+describe "The home page" do
+  it "has an image with Japanese sansukumi-ken svg from the target", :points => 1 do
+    visit "/"
+    
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+    
+    expect(page).to have_tag("img", :with => { :src => image})
+  end
+end
+
+describe "The home page" do
+  it "has a paragraph with text: 'Mushi-ken, the earliest...' ", :points => 1 do
+    visit "/"
+    
+    text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
+    
+    expect(page).to have_tag("p", :seen => text)
+  end
+end
+
+describe "The home page" do
+  it "has a div with the Japanese sansukumi-ken image and paragraph with text: 'Mushi-ken, the earliest...' inside", :points => 5 do
+    visit "/"
+    
+    text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+    
+    expect(page).to have_tag("div") do
+      with_tag("img", :with => { :src => image } )
+      with_tag("p", :seen => text )
+    end
+  end
+end
