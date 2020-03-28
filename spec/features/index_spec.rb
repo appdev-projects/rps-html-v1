@@ -407,8 +407,134 @@ describe "The home page" do
     visit "/"
 
     expect(page).to have_tag("table", :with => { :border => 1 } ) do
-      with_tag("tr:nth-child(3)") do
+      with_tag("tr:nth-child(4)") do
         with_tag("td:first-child", :seen => "Paper" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 2nd table column in the 4th row have text 'We win' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(4)") do
+        with_tag("td:nth-child(2)", :seen => "We win" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 3rd table column in the 4th row have text 'We tie' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(4)") do
+        with_tag("td:nth-child(3)", :seen => "We tie" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 4th table column in the 4th row have text 'We lose' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(4)") do
+        with_tag("td:nth-child(4)", :seen => "We lose" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 1st table column in the 5th row have text 'Scissors' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(5)") do
+        with_tag("td:first-child", :seen => "Scissors" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 2nd table column in the 5th row have text 'We lose' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(5)") do
+        with_tag("td:nth-child(2)", :seen => "We lose" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 3rd table column in the 5th row have text 'We win' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(5)") do
+        with_tag("td:nth-child(3)", :seen => "We win" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has the 4th table column in the 5th row have text 'We tie' ", :points => 1 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      with_tag("tr:nth-child(5)") do
+        with_tag("td:nth-child(4)", :seen => "We tie" )
+      end
+    end
+  end
+end
+
+describe "The home page" do
+  it "has a whole dang table! ", :points => 10 do
+    visit "/"
+
+    expect(page).to have_tag("table", :with => { :border => 1 } ) do
+      
+      with_tag("tr:first-child") do
+        with_tag("td:first-child", :with => { :rowspan => 2, :colspan => 2 } )
+        with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :seen => "and they play..." )
+      end
+
+      with_tag("tr:nth-child(2)") do
+        with_tag("td:first-child", :seen => "Rock" )
+        with_tag("td:nth-child(2)", :seen => "Paper" )
+        with_tag("td:nth-child(3)", :seen => "Scissors" )
+      end
+
+      with_tag("tr:nth-child(3)") do
+        with_tag("td:first-child", :with => { :rowspan => 3 }, :seen => "If we play..." )
+        with_tag("td:nth-child(2)", :seen => "Rock" )
+        with_tag("td:nth-child(3)", :seen => "We tie" )
+        with_tag("td:nth-child(4)", :seen => "We lose" )
+        with_tag("td:nth-child(5)", :seen => "We win" )
+      end
+      
+      with_tag("tr:nth-child(4)") do
+        with_tag("td:first-child", :seen => "Paper" )
+        with_tag("td:nth-child(2)", :seen => "We win" )
+        with_tag("td:nth-child(3)", :seen => "We tie" )
+        with_tag("td:nth-child(4)", :seen => "We lose" )
+      end
+      
+      with_tag("tr:nth-child(5)") do
+        with_tag("td:first-child", :seen => "Scissors" )
+        with_tag("td:nth-child(2)", :seen => "We lose" )
+        with_tag("td:nth-child(3)", :seen => "We win" )
+        with_tag("td:nth-child(4)", :seen => "We tie" )
       end
     end
   end
