@@ -652,3 +652,123 @@ describe "The home page" do
     end
   end
 end
+
+describe "The home page" do
+  it "the whole dang page", :points => 15 do
+    visit "/"
+    
+    text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
+    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+    
+    expect(page).to have_tag("body") do
+
+      with_tag("div") {
+        with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/)
+      }
+      with_tag("div") {
+        with_tag("a", :with => { :href => "/paper" }, :text => /Play Paper/)
+      }
+      with_tag("div") {
+        with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
+      }
+ 
+      with_tag("h1", :seen => "Welcome to Rock-Paper-Scissors!")
+
+      with_tag("p", :seen => "From Wikipedia:" ) { 
+        have_link("Wikipedia", :href => /wikipedia.org/) 
+        with_tag("a", :with => { :target => "_blank" }, :seen => "Wikipedia")
+      }
+
+          
+      rock_paper_scissors = "Rock-paper-scissors (also known as paper, scissors, stone or other" +
+      " variants) is a hand game usually played between two people, in which" +
+      " each player simultaneously forms one of three shapes with an outstretched hand."
+
+      with_tag("p", :seen => rock_paper_scissors, :count => 1 )
+      these_shapes_are = "These shapes are:"
+
+      with_tag("p", :seen => these_shapes_are, :count => 1 )
+      
+
+      with_tag("ul", :count => 1 ) do
+        with_tag("li", :count => 3)
+        with_tag("li", :seen => "\"rock\" (a closed fist)")
+        with_tag("li", :seen => "\"paper\" (a flat hand)")
+        with_tag("li", :seen => "\"scissors\" (a fist with the index and middle fingers extended, forming a V)")
+      end
+      
+      
+      a_player_who_decides = /A player who decides to play rock will beat another player who has chosen scissors ("rock crushes scissors" or sometimes "blunts scissors"), but will lose to one who has played paper ("paper covers rock"); a play of paper will lose to a play of scissors ("scissors cut[s] paper"). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./
+      
+      with_tag("p", :seen => a_player_who_decides)
+
+
+      with_tag("table", :with => { :border => 1 } ) do
+      
+        with_tag("tr:first-child") do
+          with_tag("td:first-child", :with => { :rowspan => 2, :colspan => 2 } )
+          with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :seen => "and they play..." )
+        end
+  
+        with_tag("tr:nth-child(2)") do
+          with_tag("td:first-child", :seen => "Rock" )
+          with_tag("td:nth-child(2)", :seen => "Paper" )
+          with_tag("td:nth-child(3)", :seen => "Scissors" )
+        end
+  
+        with_tag("tr:nth-child(3)") do
+          with_tag("td:first-child", :with => { :rowspan => 3 }, :seen => "If we play..." )
+          with_tag("td:nth-child(2)", :seen => "Rock" )
+          with_tag("td:nth-child(3)", :seen => "We tie" )
+          with_tag("td:nth-child(4)", :seen => "We lose" )
+          with_tag("td:nth-child(5)", :seen => "We win" )
+        end
+        
+        with_tag("tr:nth-child(4)") do
+          with_tag("td:first-child", :seen => "Paper" )
+          with_tag("td:nth-child(2)", :seen => "We win" )
+          with_tag("td:nth-child(3)", :seen => "We tie" )
+          with_tag("td:nth-child(4)", :seen => "We lose" )
+        end
+        
+        with_tag("tr:nth-child(5)") do
+          with_tag("td:first-child", :seen => "Scissors" )
+          with_tag("td:nth-child(2)", :seen => "We lose" )
+          with_tag("td:nth-child(3)", :seen => "We win" )
+          with_tag("td:nth-child(4)", :seen => "We tie" )
+        end
+      end
+      
+      
+      origination_from_china = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"./
+      
+      with_tag("p", :seen => origination_from_china)
+      
+      a_chart_showing = /A chart showing how the three game elements interact/
+      rock_paper_scissors_svg = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
+      
+      with_tag("div") do
+        with_tag("img", :with => { :src => rock_paper_scissors_svg } )
+        with_tag("p", :seen => a_chart_showing )
+      end
+      
+          
+      kistune_ken = /Kitsune-ken was a popular Japanese rock–paper–scissors variant./
+      kistune_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
+      
+      with_tag("div") do
+        with_tag("img", :with => { :src => kistune_ken_image } )
+        with_tag("p", :seen => kistune_ken )
+      end
+
+      mushi_ken = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
+      mushi_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+      
+      with_tag("div") do
+        with_tag("img", :with => { :src => mushi_ken_image } )
+        with_tag("p", :seen => mushi_ken )
+      end
+    end
+
+  end
+end
