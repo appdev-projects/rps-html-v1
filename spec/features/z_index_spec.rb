@@ -77,13 +77,13 @@ describe "The home page" do
     visit "/"
 
     expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/)
+      with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
     }
     expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/paper" }, :text => /Play Paper/)
+      with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
     }
     expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/scissors" }, :text => /Play Scissors/)
+      with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
     }
   end
 end
@@ -92,7 +92,7 @@ describe "The home page" do
   it "has a heading with the text 'Welcome to Rock-Paper-Scissors!'", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("h1", :text => /Welcome to Rock-Paper-Scissors!/)
+    expect(page).to have_tag("h1", :seen => "Welcome to Rock-Paper-Scissors!")
   end
 end
 
@@ -108,7 +108,7 @@ describe "The home page" do
   it "has a link with the text 'Wikipedia'", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("a", :text => "Wikipedia" )
+    expect(page).to have_tag("a", :seen => "Wikipedia" )
   end
 end
 
@@ -124,7 +124,7 @@ describe "The home page" do
   it "has a paragraph with the text 'From Wikipedia:' ", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("p", :text => /From Wikipedia:/ )
+    expect(page).to have_tag("p", :seen => "From Wikipedia:" )
   end
 end
 
@@ -132,9 +132,9 @@ describe "The home page" do
   it "has 'Wikipedia' is as a link to wikipedia.org that opens in a new tab", :points => 3 do
     visit "/"
     
-    expect(page).to have_tag("p", :text => /From Wikipedia:/ ) { 
+    expect(page).to have_tag("p", :seen => "From Wikipedia:" ) { 
       have_link("Wikipedia", :href => /wikipedia.org/) 
-      with_tag("a", :with => { :target => "_blank" }, :text => /Wikipedia/)
+      with_tag("a", :with => { :target => "_blank"}, :seen => "Wikipedia")
     }
   end
 end
@@ -663,10 +663,10 @@ describe "The home page" do
     expect(page).to have_tag("html > body") do
 
       with_tag("div:first-child") {
-        with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/)
+        with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
       }
       with_tag("div:nth-child(2)") {
-        with_tag("a", :with => { :href => "/paper" }, :text => /Play Paper/)
+        with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
       }
       with_tag("div:nth-child(3)") {
         with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")

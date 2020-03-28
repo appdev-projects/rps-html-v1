@@ -22,8 +22,10 @@ describe "/paper" do
   it "has a meta tag that increases the types of characters we can use.", :points => 1 do
     visit "/paper"
     
-    expect(page).to have_tag("head") do
-      with_tag("meta", :with => { :charset => "utf-8" } )
+    expect(page).to have_tag("html") do
+      expect(page).to have_tag("head") do
+        with_tag("meta", :with => { :charset => "utf-8" } )
+      end
     end
   end
 end
@@ -31,8 +33,12 @@ end
 describe "/paper" do
   it "has the title 'You played paper!' ", :points => 1 do
     visit "/paper"
-
-    expect(page).to have_title "You played paper!"
+    
+    expect(page).to have_tag("html") do
+      expect(page).to have_tag("head") do
+        with_tag("title", :seen => "You played paper!")
+      end
+    end
   end
 end
 
@@ -146,7 +152,11 @@ describe "/paper" do
   it "has one secondary heading with the text 'We played rock!'", :points => 1 do
     visit "/paper"
     
-    expect(page).to have_selector("h2", { :text => "We played paper!" } )
+    expect(page).to have_tag("html") do
+      expect(page).to have_tag("body") do
+        with_tag("h2", { :seen => "We played paper!" } )
+      end
+    end
   end
 end
 
@@ -154,7 +164,11 @@ describe "/paper" do
   it "has one secondary heading with the text 'They played paper!'", :points => 1 do
     visit "/paper"
     
-    expect(page).to have_selector("h2", { :text => "They played paper!" } )
+    expect(page).to have_tag("html") do
+      expect(page).to have_tag("body") do
+        with_tag("h2", { :seen => "They played paper!" } )
+      end
+    end
   end
 end
 
@@ -162,7 +176,11 @@ describe "/paper" do
   it "has one secondary heading with the text 'We tied!'", :points => 1 do
     visit "/paper"
     
-    expect(page).to have_selector("h2", { :text => "We tied!" } )
+    expect(page).to have_tag("html") do
+      expect(page).to have_tag("body") do
+        with_tag("h2", { :seen => "We tied!" } )
+      end
+    end
   end
 end
 
