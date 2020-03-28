@@ -654,13 +654,13 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "the whole dang page", :points => 15 do
+  it "has all the elements in the right order.", :points => 15 do
     visit "/"
     
     text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
     
-    expect(page).to have_tag("body") do
+    expect(page).to have_tag("html > body") do
 
       with_tag("div:first-child") {
         with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/)

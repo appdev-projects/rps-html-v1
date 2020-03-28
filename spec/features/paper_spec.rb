@@ -9,6 +9,26 @@ describe "/paper" do
 end
 
 describe "/paper" do
+  it "has the DOCTYPE declaration at the top of the page.", :points => 1 do
+    visit "/paper"
+    
+    first_line = page.html.strip.downcase.first(15)
+    doctype = "<!doctype html>"
+    expect(first_line.include?(doctype) ).to be true
+  end
+end
+
+describe "/paper" do
+  it "has a meta tag that increases the types of characters we can use.", :points => 1 do
+    visit "/paper"
+    
+    expect(page).to have_tag("head") do
+      with_tag("meta", :with => { :charset => "utf-8" } )
+    end
+  end
+end
+
+describe "/paper" do
   it "has the title 'You played paper!' ", :points => 1 do
     visit "/paper"
 
