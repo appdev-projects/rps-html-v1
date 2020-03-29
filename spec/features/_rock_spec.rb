@@ -147,7 +147,11 @@ describe "/rock" do
   it "has one secondary heading with the text 'We played rock!'", :points => 1 do
     visit "/rock"
     
-    expect(page).to have_selector("h2", { :text => "We played rock!" } )
+    expect(page).to have_tag("html") do
+      with_tag("body") do
+        with_tag("h2", { :seen => "We played rock!" } )
+      end
+    end
   end
 end
 
@@ -155,7 +159,11 @@ describe "/rock" do
   it "has one secondary heading with the text 'They played paper!'", :points => 1 do
     visit "/rock"
     
-    expect(page).to have_selector("h2", { :text => "They played paper!" } )
+    expect(page).to have_tag("html") do
+      with_tag("body") do
+        with_tag("h2", { :seen => "They played paper!" } )
+      end
+    end
   end
 end
 
@@ -163,7 +171,11 @@ describe "/rock" do
   it "has one secondary heading with the text 'We lost!'", :points => 1 do
     visit "/rock"
     
-    expect(page).to have_selector("h2", { :text => "We lost!" } )
+    expect(page).to have_tag("html") do
+      with_tag("body") do
+        with_tag("h2", { :seen => "We lost!" } )
+      end
+    end
   end
 end
 
@@ -177,22 +189,28 @@ describe "/rock" do
     
     expect(page).to have_tag("html") do
       with_tag("head") do
-        with_tag("title", :text => "You played rock!" )
+        with_tag("title", :seen => "You played rock!" )
         with_tag("meta", :with => { :charset => "utf-8" } )
       end
       
       with_tag("body") do
         with_tag("div:first-child") do
           with_tag("a", :count => 1 )
-          with_tag("a", :with => { :href => "/rock" }, :text => /Play Rock/)
+          # with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
+          p a_tag = find("div:first-child a")
+          p find("div:first-child a")[:href].match(/(\/rock\.html|\/rock$)/)
+
+          # href should be /rock OR /rock.html
+          expect(a_tag[:href]).to match( /(\/rock\.html|\/rock$)/ )
+          
         end
         with_tag("div:nth-child(2)") do
           with_tag("a", :count => 1 )
-          with_tag("a", :with => { :href => "/paper" }, :text => /Play Paper/)
+          with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
         end
         with_tag("div:nth-child(3)") do
           with_tag("a", :count => 1 )
-          with_tag("a", :with => { :href => "/scissors" }, :text => /Play Scissors/)
+          with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
         end
         
         with_tag("div:nth-child(3) + h2", :seen => "We played rock!")
