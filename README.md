@@ -18,15 +18,7 @@ For now, we're just trying to learn how to make the pages _look_ the way we want
 
 ## Setup
 
- - From [your Cloud9 repositories list](https://c9.io/account/repos), set up a workspace [as usual](https://guides.firstdraft.com/starting-on-a-project-in-cloud9).
- - Set up the project: `bin/setup`
- - Start your Rails application by clicking the "Run Project" button at the top of the Cloud9 IDE.
- - Navigate to your live application by finding the URL in the Terminal tab that popped up to run the server, clicking on it and saying "Open", or copy-pasting it into a new Chrome Tab.
-
-    Alternatively you can go to the Cloud9 "Preview" menu and select "Preview Running Application" (**not** "Live Preview"), but I suggest clicking on the small arrow icon next to the address bar to pop the window into its own Chrome tab so that you're not wasting IDE real estate on it.
- - Initially you may see an orange warning page that Cloud9 annoys you with to ensure that you're not using the preview for real users (they don't want the traffic).
-
-     Click through that and then you may see a page that says "Yay! You’re on Rails!". That means your server started up successfully. We now need to start building some pages.
+ - Click through that and then you may see a page that says "Yay! You’re on Rails!". That means your server started up successfully. We now need to start building some pages.
  - Create a file in the `/public` folder called `rock.html`. In that file, enter some text — you know what it should say by now:
 
     ```html
@@ -76,3 +68,4 @@ For now, we're just trying to learn how to make the pages _look_ the way we want
 ## Next up
 
 In [the next project](http://rps-css-target.herokuapp.com/), we'll learn how to take the content that we've tagged up with HTML and add some style with CSS.
+

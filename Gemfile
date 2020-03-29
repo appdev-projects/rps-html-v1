@@ -59,7 +59,7 @@ group :development do
   gem 'annotate'
   gem 'better_errors'
   gem 'binding_of_caller'
-  gem 'draft_generators', github: 'firstdraft/draft_generators', branch: 'summer-2019'
+  gem 'draft_generators', github: 'firstdraft/draft_generators', branch: 'winter-2020'
   gem 'letter_opener'
   gem 'meta_request'
 end
@@ -68,10 +68,10 @@ group :test do
   gem 'capybara'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem 'rspec-html-matchers'
   gem 'webmock'
 end
 
-gem 'rspec-html-matchers'
 group :production do
   gem 'pg'
   gem 'rails_12factor'
