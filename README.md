@@ -10,9 +10,9 @@ For now, we're just trying to learn how to make the pages _look_ the way we want
 
 ## Standard Workflow
 
- 1. Set up the project: `bin/setup`
- 1. Start the web server by clicking "Run Project".
- 1. Navigate to your live application preview.
+ 1. Open the project in GitPod
+ 1. Start the web server by typing "bin/server" into the terminal.
+ 1. Navigate to your live application preview by clicking on the URl that has appeared when running the "bin/server" command.
  1. As you work, remember to navigate to `/git` and **commit often as you work.**
  1. Run `rails grade` as often as you like to see how you are doing, but **make sure you test your app manually first to make sure it matches the target's behavior first**.
 
