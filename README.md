@@ -36,7 +36,7 @@ For now, we're just trying to learn how to make the pages _look_ the way we want
 ## Your job
 
  - Now your job is to, page by page, make your application match [the target](http://rps-html-target.herokuapp.com/rock).
- - Use the [HTML Reference](https://slides.com/raghubetina/html-reference/live?token=P-vFUIup) to try and find elements that will help.
+ - Use the [HTML Reference](https://slides.com/raghubetina/html-reference?token=P-vFUIup) to try and find elements that will help.
  - When you get to the rules page, here are the URLs of the images:
     - [https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png](https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png)
     - [https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg](https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg)
