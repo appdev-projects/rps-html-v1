@@ -8,9 +8,10 @@ GIT
 
 GIT
   remote: https://github.com/firstdraft/grade_runner.git
-  revision: 55b5cbe74fc6151ce221c638c7fc8ef0d1bb15e6
+  revision: 00b35c32bf97439065d6ea51469678cebb3cddc5
   specs:
     grade_runner (0.0.3.pre.3)
+      oj
 
 GIT
   remote: https://github.com/firstdraft/web_git.git
@@ -233,6 +234,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.9-x86-mingw32)
       mini_portile2 (~> 2.4.0)
+    oj (3.10.6)
     orm_adapter (0.5.0)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)

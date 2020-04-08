@@ -5,15 +5,15 @@ class JsonOutputFormatter < RSpec::Core::Formatters::JsonFormatter
 
   def dump_summary(summary)
     total_points = summary.
-    examples.
-    map { |example| example.metadata[:points].to_i }.
-    sum
-
+      examples.
+      map { |example| example.metadata[:points].to_i }.
+      sum
+      
     earned_points = summary.
-    examples.
-    select { |example| example.execution_result.status == :passed }.
-    map { |example| example.metadata[:points].to_i }.
-    sum
+      examples.
+      select { |example| example.execution_result.status == :passed }.
+      map { |example| example.metadata[:points].to_i }.
+      sum
 
     @output_hash[:summary] = {
       duration: summary.duration,
@@ -41,6 +41,10 @@ class JsonOutputFormatter < RSpec::Core::Formatters::JsonFormatter
     ].join(", ")
   end
 
+  def close(_notification)
+    output.write  Oj.dump @output_hash
+  end
+  
   private
 
   def format_example(example)
