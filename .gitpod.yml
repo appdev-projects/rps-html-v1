@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2020-base
+image: jelaniwoods/appdev2020-base:latest
 
 tasks:
   - init: bin/setup
