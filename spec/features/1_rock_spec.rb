@@ -10,7 +10,7 @@ end
 
 
 describe "/rock" do
-  it "has the DOCTYPE declaration as the first line of the page.", :points => 1 do
+  it "has the DOCTYPE declaration as the VERY FIRST line of the page.", :points => 1 do
     visit "/rock"
     
     first_line = page.html.strip.downcase.first(15)
@@ -103,12 +103,12 @@ describe "/rock" do
   it "has a link to '/' with the text 'Rules'", :points => 1 do
     visit "/rock"
 
-    expect(page).to have_tag("a", :text => /Rules/i,:with => { :href => "/" } )
+    expect(page).to have_tag("a", :text => /Rules/i, :with => { :href => "/" } )
   end
 end
 
 describe "/rock" do
-  it "has all 'Play'links on a separate line", :points => 3 do
+  it "has each 'Play' link in their own <div>", :points => 3 do
     visit "/rock"
 
     expect(page).to have_tag("body") do
@@ -186,7 +186,7 @@ describe "/rock" do
 end
 
 describe "/rock" do
-  it "has all elements in the right order", :points => 20 do
+  it "has all elements in the right order", :points => 1 do
     visit "/rock"
     
     first_line = page.html.strip.downcase.first(15)

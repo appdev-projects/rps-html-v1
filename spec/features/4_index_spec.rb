@@ -14,7 +14,7 @@ describe "The home page" do
 
     expect(page).to have_tag("html") do
       with_tag("head") do
-        with_tag("title", :text => "Rock-Paper-Scissors Rules")
+        with_tag("title", :text => /Rock-Paper-Scissors Rules/i)
       end
     end
   end
@@ -77,17 +77,17 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has all 'Play' links on a separate line", :points => 3 do
+  it "has each 'Play' link in their own <div> tag", :points => 3 do
     visit "/"
 
     expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
+      with_tag("a", :with => { :href => "/rock" }, :seen => /Play Rock/i)
     }
     expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
+      with_tag("a", :with => { :href => "/paper" }, :seen => /Play Paper/i)
     }
     expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
+      with_tag("a", :with => { :href => "/scissors" }, :seen => /Play Scissors/i)
     }
   end
 end
@@ -96,7 +96,7 @@ describe "The home page" do
   it "has a heading with the text 'Welcome to Rock-Paper-Scissors!'", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("h1", :seen => "Welcome to Rock-Paper-Scissors!")
+    expect(page).to have_tag("h1", :seen => /Welcome to Rock-Paper-Scissors/i)
   end
 end
 
@@ -112,7 +112,7 @@ describe "The home page" do
   it "has a link with the text 'Wikipedia'", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("a", :seen => "Wikipedia" )
+    expect(page).to have_tag("a", :seen => /Wikipedia/i )
   end
 end
 
@@ -128,7 +128,7 @@ describe "The home page" do
   it "has a paragraph with the text 'From Wikipedia:' ", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("p", :seen => "From Wikipedia:" )
+    expect(page).to have_tag("p", :seen => /From Wikipedia/i )
   end
 end
 
@@ -136,9 +136,9 @@ describe "The home page" do
   it "has 'Wikipedia' is as a link to wikipedia.org that opens in a new tab", :points => 3 do
     visit "/"
     
-    expect(page).to have_tag("p", :seen => "From Wikipedia:" ) { 
+    expect(page).to have_tag("p", :seen => /From Wikipedia/i ) { 
       have_link("Wikipedia", :href => /wikipedia.org/) 
-      with_tag("a", :with => { :target => "_blank"}, :seen => "Wikipedia")
+      with_tag("a", :with => { :target => "_blank"}, :seen => /Wikipedia/i)
     }
   end
 end
@@ -243,9 +243,9 @@ describe "The home page" do
 
     expect(page).to have_tag("ul", :count => 1 ) do
       with_tag("li", :count => 3)
-      with_tag("li", :seen => "\"rock\" (a closed fist)")
-      with_tag("li", :seen => "\"paper\" (a flat hand)")
-      with_tag("li", :seen => "\"scissors\" (a fist with the index and middle fingers extended, forming a V)")
+      with_tag("li", :seen => /"rock" \(a closed fist\)/i)
+      with_tag("li", :seen => /"paper" \(a flat hand\)/i)
+      with_tag("li", :seen => /"scissors" \(a fist with the index and middle fingers extended, forming a V\)/i)
     end
   end
 end
@@ -503,42 +503,42 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has a whole dang table! ", :points => 10 do
+  it "has the whole HTML table displayed correctly", :points => 3 do
     visit "/"
 
     expect(page).to have_tag("table", :with => { :border => 1 } ) do
       
       with_tag("tr:first-child") do
         with_tag("td:first-child", :with => { :rowspan => 2, :colspan => 2 } )
-        with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :seen => "and they play..." )
+        with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :seen => /and they play/i )
       end
 
       with_tag("tr:nth-child(2)") do
-        with_tag("td:first-child", :seen => "Rock" )
-        with_tag("td:nth-child(2)", :seen => "Paper" )
-        with_tag("td:nth-child(3)", :seen => "Scissors" )
+        with_tag("td:first-child", :seen => /Rock/i )
+        with_tag("td:nth-child(2)", :seen => /Paper/i )
+        with_tag("td:nth-child(3)", :seen => /Scissors/i )
       end
 
       with_tag("tr:nth-child(3)") do
-        with_tag("td:first-child", :with => { :rowspan => 3 }, :seen => "If we play..." )
-        with_tag("td:nth-child(2)", :seen => "Rock" )
-        with_tag("td:nth-child(3)", :seen => "We tie" )
-        with_tag("td:nth-child(4)", :seen => "We lose" )
-        with_tag("td:nth-child(5)", :seen => "We win" )
+        with_tag("td:first-child", :with => { :rowspan => 3 }, :seen => /If we play/i )
+        with_tag("td:nth-child(2)", :seen => /Rock/i )
+        with_tag("td:nth-child(3)", :seen => /We tie/i )
+        with_tag("td:nth-child(4)", :seen => /We lose/i )
+        with_tag("td:nth-child(5)", :seen => /We win/i )
       end
       
       with_tag("tr:nth-child(4)") do
-        with_tag("td:first-child", :seen => "Paper" )
-        with_tag("td:nth-child(2)", :seen => "We win" )
-        with_tag("td:nth-child(3)", :seen => "We tie" )
-        with_tag("td:nth-child(4)", :seen => "We lose" )
+        with_tag("td:first-child", :seen => /Paper/i )
+        with_tag("td:nth-child(2)", :seen => /We win/i )
+        with_tag("td:nth-child(3)", :seen => /We tie/i )
+        with_tag("td:nth-child(4)", :seen => /We lose/i )
       end
       
       with_tag("tr:nth-child(5)") do
-        with_tag("td:first-child", :seen => "Scissors" )
-        with_tag("td:nth-child(2)", :seen => "We lose" )
-        with_tag("td:nth-child(3)", :seen => "We win" )
-        with_tag("td:nth-child(4)", :seen => "We tie" )
+        with_tag("td:first-child", :seen => /Scissors/i )
+        with_tag("td:nth-child(2)", :seen => /We lose/i )
+        with_tag("td:nth-child(3)", :seen => /We win/i )
+        with_tag("td:nth-child(4)", :seen => /We tie/i )
       end
     end
   end
@@ -549,7 +549,7 @@ describe "The home page" do
   it "has a paragraph with text: 'Originating from China and Japan...' ", :points => 1 do
     visit "/"
 
-    text = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"./
+    text = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"./i
     
     expect(page).to have_tag("p", :seen => text)
   end
@@ -569,7 +569,7 @@ describe "The home page" do
   it "has a paragraph with text: 'A chart showing how...' ", :points => 1 do
     visit "/"
     
-    text = /A chart showing how the three game elements interact/
+    text = /A chart showing how the three game elements interact/i
     
     expect(page).to have_tag("p", :seen => text)
   end
@@ -579,7 +579,7 @@ describe "The home page" do
   it "has a div with the rock paper scissors image and paragraph with text: 'A chart showing how...' inside", :points => 5 do
     visit "/"
     
-    text = /A chart showing how the three game elements interact/
+    text = /A chart showing how the three game elements interact/i
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
     
     expect(page).to have_tag("div") do
@@ -603,7 +603,7 @@ describe "The home page" do
   it "has a paragraph with text: 'Kitsune-ken was a...' ", :points => 1 do
     visit "/"
     
-    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant./
+    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/i
     
     expect(page).to have_tag("p", :seen => text)
   end
@@ -613,7 +613,7 @@ describe "The home page" do
   it "has a div with the kistune-ken image and paragraph with text: 'Kitsune-ken was a...' inside", :points => 5 do
     visit "/"
     
-    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/
+    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/i
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
     
     expect(page).to have_tag("div") do
@@ -637,7 +637,7 @@ describe "The home page" do
   it "has a paragraph with text: 'Mushi-ken, the earliest...' ", :points => 1 do
     visit "/"
     
-    text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
+    text = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
     
     expect(page).to have_tag("p", :seen => text)
   end
@@ -647,7 +647,7 @@ describe "The home page" do
   it "has a div with the Japanese sansukumi-ken image and paragraph with text: 'Mushi-ken, the earliest...' inside", :points => 5 do
     visit "/"
     
-    text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)./
+    text = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
     
     expect(page).to have_tag("div") do
@@ -658,49 +658,49 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has all the elements in the right order.", :points => 15 do
+  it "has all the elements in the right order.", :points => 1 do
     visit "/"
     
-    text = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)/
+    text = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
     
     expect(page).to have_tag("html > body") do
 
       with_tag("div:first-child") {
-        with_tag("a", :with => { :href => "/rock" }, :seen => "Play Rock")
+        with_tag("a", :with => { :href => "/rock" }, :seen => /Play Rock/i)
       }
       with_tag("div:nth-child(2)") {
-        with_tag("a", :with => { :href => "/paper" }, :seen => "Play Paper")
+        with_tag("a", :with => { :href => "/paper" }, :seen => /Play Paper/i)
       }
       with_tag("div:nth-child(3)") {
-        with_tag("a", :with => { :href => "/scissors" }, :seen => "Play Scissors")
+        with_tag("a", :with => { :href => "/scissors" }, :seen => /Play Scissors/i)
       }
  
-      with_tag("div:nth-child(3) + h1", :seen => "Welcome to Rock-Paper-Scissors!")
+      with_tag("div:nth-child(3) + h1", :seen => /Welcome to Rock-Paper-Scissors/i)
 
-      with_tag("h1 + p:first-of-type", :seen => "From Wikipedia:" ) { 
+      with_tag("h1 + p:first-of-type", :seen => /From Wikipedia/i ) { 
         have_link("Wikipedia", :href => /wikipedia.org/) 
-        with_tag("a", :with => { :target => "_blank" }, :seen => "Wikipedia")
+        with_tag("a", :with => { :target => "_blank" }, :seen => /Wikipedia/i)
       }
 
           
-      rock_paper_scissors = /Rock-paper-scissors (also known as paper, scissors, stone or other variants) is a hand game usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand/
+      rock_paper_scissors = /Rock-paper-scissors \(also known as paper, scissors, stone or other variants\) is a hand game usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand/i
 
       with_tag("p:nth-of-type(2)", :seen => rock_paper_scissors, :count => 1 )
-      these_shapes_are = "These shapes are:"
+      these_shapes_are = /These shapes are/i
 
       with_tag("p:nth-of-type(3)", :seen => these_shapes_are, :count => 1 )
       
 
       with_tag("p:nth-of-type(3) + ul", :count => 1 ) do
         with_tag("li", :count => 3)
-        with_tag("li", :seen => "\"rock\" (a closed fist)")
-        with_tag("li", :seen => "\"paper\" (a flat hand)")
-        with_tag("li", :seen => "\"scissors\" (a fist with the index and middle fingers extended, forming a V)")
+        with_tag("li", :seen => /"rock" \(a closed fist\)/i)
+        with_tag("li", :seen => /"paper" \(a flat hand\)/i)
+        with_tag("li", :seen => /"scissors" \(a fist with the index and middle fingers extended, forming a V\)/i)
       end
       
       
-      a_player_who_decides = /A player who decides to play rock will beat another player who has chosen scissors ("rock crushes scissors" or sometimes "blunts scissors"), but will lose to one who has played paper ("paper covers rock"); a play of paper will lose to a play of scissors ("scissors cut[s] paper"). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./i
+      a_player_who_decides = /A player who decides to play rock will beat another player who has chosen scissors \("rock crushes scissors" or sometimes "blunts scissors"\), but will lose to one who has played paper \("paper covers rock"\); a play of paper will lose to a play of scissors \("scissors cut\[s\] paper"\). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./i
       
       with_tag("p:nth-of-type(4)", :seen => a_player_who_decides)
 
@@ -709,7 +709,7 @@ describe "The home page" do
       
         with_tag("tr:first-child") do
           with_tag("td:first-child", :with => { :rowspan => 2, :colspan => 2 } )
-          with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :seen => "and they play..." )
+          with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :text => /and they play/i )
         end
   
         with_tag("tr:nth-child(2)") do
@@ -751,7 +751,7 @@ describe "The home page" do
       
       with_tag("p:nth-of-type(5) + div") do
         with_tag("img", :with => { :src => rock_paper_scissors_svg } )
-        with_tag("p", :seen => a_chart_showing )
+        with_tag("p", :seend => a_chart_showing )
       end
       
           
@@ -763,7 +763,7 @@ describe "The home page" do
         with_tag("p", :seen => kistune_ken )
       end
 
-      mushi_ken = /Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi)/i
+      mushi_ken = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
       mushi_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
       
       with_tag("div:nth-of-type(6)") do
