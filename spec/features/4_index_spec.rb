@@ -751,7 +751,7 @@ describe "The home page" do
       
       with_tag("p:nth-of-type(5) + div") do
         with_tag("img", :with => { :src => rock_paper_scissors_svg } )
-        with_tag("p", :seend => a_chart_showing )
+        with_tag("p", :seen => a_chart_showing )
       end
       
           
