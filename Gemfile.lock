@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/firstdraft/grade_runner.git
-  revision: 00b35c32bf97439065d6ea51469678cebb3cddc5
+  revision: 2934f2b774488c3fc030f4211bc0530e97b11d73
   specs:
     grade_runner (0.0.3.pre.3)
       oj
@@ -108,7 +108,11 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (~> 1.5)
       xpath (~> 3.2)
+    childprocess (3.0.0)
     coderay (1.1.3)
+    color (1.8)
+    color_namer (0.1.0)
+      color (>= 1.4.1)
     concurrent-ruby (1.1.6)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -172,7 +176,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     nokogiri (1.10.9-x86-mingw32)
       mini_portile2 (~> 2.4.0)
-    oj (3.10.6)
+    oj (3.10.14)
     orm_adapter (0.5.0)
     pg (1.2.3)
     pg (1.2.3-x64-mingw32)
@@ -259,6 +263,7 @@ GEM
     rspec-support (3.9.3)
     ruby2_keywords (0.0.2)
     ruby_dep (1.5.0)
+    rubyzip (2.3.0)
     safe_yaml (1.0.5)
     sassc (2.4.0)
       ffi (~> 1.9)
@@ -270,6 +275,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    selenium-webdriver (3.142.7)
+      childprocess (>= 0.5, < 4.0)
+      rubyzip (>= 1.2.2)
     sinatra (2.0.8.1)
       mustermann (~> 1.0)
       rack (~> 2.0)
@@ -332,6 +340,7 @@ DEPENDENCIES
   binding_of_caller
   byebug
   capybara
+  color_namer
   dotenv-rails
   draft_generators!
   execjs
@@ -346,6 +355,7 @@ DEPENDENCIES
   rspec-html-matchers
   rspec-rails
   sassc-rails
+  selenium-webdriver
   sprockets (< 4)
   sqlite3 (~> 1.4.1)
   table_print

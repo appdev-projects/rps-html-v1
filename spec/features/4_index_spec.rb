@@ -12,11 +12,8 @@ describe "The home page" do
   it "has the title 'Rock-Paper-Scissors Rules' ", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("html") do
-      with_tag("head") do
-        with_tag("title", :text => /Rock-Paper-Scissors Rules/i)
-      end
-    end
+    expect(page).to have_title(/Rock-Paper-Scissors Rules/i)
+
   end
 end
 
@@ -24,7 +21,10 @@ describe "The home page" do
   it "has at least one link", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("a", { :minimum => 1 } )
+    # expect(page).to have_tag("a", { :minimum => 1 } )
+    a_count = all("a").count
+    expect(a_count).to be >= 1,
+      "Expected page to have at least one <a>, but found #{a_count} instead."
   end
 end
 
@@ -32,7 +32,10 @@ describe "The home page" do
   it "has at least two links", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("a", { :minimum => 2 } )
+    # expect(page).to have_tag("a", { :minimum => 2 } )
+    a_count = all("a").count
+    expect(a_count).to be >= 2,
+      "Expected page to have at least two <a>'s, but found #{a_count} instead."
   end
 end
 
@@ -40,7 +43,10 @@ describe "The home page" do
   it "has at least three links", :points => 3 do
     visit "/"
     
-    expect(page).to have_tag("a", { :minimum => 3 } )
+    # expect(page).to have_tag("a", { :minimum => 3 } )
+    a_count = all("a").count
+    expect(a_count).to be >= 3,
+    "Expected page to have at least three <a>'s, but found #{a_count} instead."
   end
 end
 
@@ -48,7 +54,10 @@ describe "The home page" do
   it "has at most four links", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("a", { :count => 4 } )
+    # expect(page).to have_tag("a", { :count => 4 } )
+    a_count = all("a").count
+    expect(a_count).to eq(4),
+      "Expected page to have at least three <a>'s, but found #{a_count} instead."
   end
 end
 
@@ -56,7 +65,8 @@ describe "The home page" do
   it "has a link to '/rock' with the text 'Play Rock'", :points => 1 do
     visit "/"
 
-    expect(page).to have_link("Play Rock", { :href => "/rock" } )
+    expect { find("a[href*='/rock']", :text => /Play Rock/i) }.to_not raise_error,
+      "Expected page to have an <a> with the text 'Play Rock' and an href attribute of '/rock', but didn't find one."
   end
 end
 
@@ -64,7 +74,8 @@ describe "The home page" do
   it "has a link to '/paper' with the text 'Play Paper'", :points => 1 do
     visit "/"
 
-    expect(page).to have_link("Play Paper", { :href => "/paper" } )
+    expect { find("a[href*='/paper']", :text => /Play Paper/i) }.to_not raise_error,
+      "Expected page to have an <a> with the text 'Play Paper' and an href attribute of '/paper', but didn't find one."
   end
 end
 
@@ -72,7 +83,8 @@ describe "The home page" do
   it "has a link to '/scissors' with the text 'Play Scissors'", :points => 1 do
     visit "/"
 
-    expect(page).to have_link("Play Scissors", { :href => "/scissors" } )
+    expect { find("a[href*='/scissors']", :text => /Play Scissors/i) }.to_not raise_error,
+      "Expected page to have an <a> with the text 'Play Scissors' and an href attribute of '/scissors', but didn't find one."
   end
 end
 
@@ -80,15 +92,25 @@ describe "The home page" do
   it "has each 'Play' link in their own <div> tag", :points => 3 do
     visit "/"
 
-    expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/rock" }, :seen => /Play Rock/i)
-    }
-    expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/paper" }, :seen => /Play Paper/i)
-    }
-    expect(page).to have_tag("div") {
-      with_tag("a", :with => { :href => "/scissors" }, :seen => /Play Scissors/i)
-    }
+    play_rock_link = find("a[href*='/rock']", :text => /Play Rock/i) 
+    play_rock_parent = play_rock_link.find(:xpath, "..")
+    expect(play_rock_parent.tag_name).to eq("div"),
+      "Expected parent element of 'Play Rock' link to be a <div> but was '#{play_rock_parent.tag_name}' instead."
+    
+    play_paper_link = find("a[href*='/paper']", :text => /Play Paper/i) 
+    play_paper_parent = play_paper_link.find(:xpath, "..")
+    expect(play_paper_parent.tag_name).to eq("div"),
+      "Expected parent element of 'Play Paper' link to be a <div> but was '#{play_paper_parent.tag_name}' instead."
+    
+    play_scissors_link = find("a[href*='/scissors']", :text => /Play Scissors/i) 
+    play_scissors_parent = play_scissors_link.find(:xpath, "..")
+    expect(play_scissors_parent.tag_name).to eq("div"),
+      "Expected parent element of 'Play Scissors' link to be a <div> but was '#{play_scissors_parent.tag_name}' instead."
+    
+    expect(play_rock_parent).to_not eq(play_paper_parent),
+      "Expected parent element of 'Play Rock' link to be a different <div> than the parent of 'Play Paper' link, but they were the same."
+    expect(play_paper_parent).to_not eq(play_scissors_parent),
+      "Expected parent element of 'Play Paper' link to be a different <div> than the parent of 'Play Scissors' link, but they were the same."
   end
 end
 
@@ -96,7 +118,9 @@ describe "The home page" do
   it "has a heading with the text 'Welcome to Rock-Paper-Scissors!'", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("h1", :seen => /Welcome to Rock-Paper-Scissors/i)
+    # expect(page).to have_tag("h1", :seen => /Welcome to Rock-Paper-Scissors/i)
+    expect { find("h1", :text => /Welcome to Rock-Paper-Scissors/i) }.to_not raise_error,
+      "Expected page to have an <h1> with the text 'Welcome to Rock-Paper-Scissors!', but didn't find one."
   end
 end
 
@@ -112,7 +136,9 @@ describe "The home page" do
   it "has a link with the text 'Wikipedia'", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("a", :seen => /Wikipedia/i )
+    # expect(page).to have_tag("a", :seen => /Wikipedia/i )
+    expect { find("a", :text => /Wikipedia/i) }.to_not raise_error,
+      "Expected page to have an <a> tag with the text 'Wikipedia', but didn't find one."
   end
 end
 
@@ -128,18 +154,19 @@ describe "The home page" do
   it "has a paragraph with the text 'From Wikipedia:' ", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("p", :seen => /From Wikipedia/i )
+    # expect(page).to have_tag("p", :seen => /From Wikipedia/i )
+    expect { find("p", :text => /From Wikipedia/i) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'From Wikipedia:', but didn't find one."
   end
 end
 
 describe "The home page" do
-  it "has 'Wikipedia' is as a link to wikipedia.org that opens in a new tab", :points => 3 do
+  it "has 'Wikipedia' as a link to wikipedia.org that opens in a new tab", :points => 3 do
     visit "/"
     
-    expect(page).to have_tag("p", :seen => /From Wikipedia/i ) { 
-      have_link("Wikipedia", :href => /wikipedia.org/) 
-      with_tag("a", :with => { :target => "_blank"}, :seen => /Wikipedia/i)
-    }
+    wiki_link = find("a", :text => /Wikipedia/i)
+    expect(wiki_link[:target]).to eq("_blank"),
+      "Expected target attribute of Wikipedia link to have the value '_blank' but it did not."
   end
 end
 
@@ -147,15 +174,21 @@ describe "The home page" do
   it "has at least 1 paragraph tag", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :minimum => 1 )
+    # expect(page).to have_tag("p", :minimum => 1 )
+    p_count = all("p").count
+    expect(p_count).to be >= 1,
+      "Expected page to have at least one <p>, but found #{p_count} instead."
   end
 end
-
-describe "The home page" do
-  it "has at least 2 paragraph tags", :points => 1 do
-    visit "/"
-    
-    expect(page).to have_tag("p", :minimum => 2 )
+  
+  describe "The home page" do
+    it "has at least 2 paragraph tags", :points => 1 do
+      visit "/"
+      
+      # expect(page).to have_tag("p", :minimum => 2 )
+      p_count = all("p").count
+      expect(p_count).to be >= 2,
+        "Expected page to have at least two <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -163,7 +196,10 @@ describe "The home page" do
   it "has at least 3 paragraph tags", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :minimum => 3 )
+    # expect(page).to have_tag("p", :minimum => 3 )
+    p_count = all("p").count
+    expect(p_count).to be >= 3,
+      "Expected page to have at least three <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -171,7 +207,10 @@ describe "The home page" do
   it "has at least 4 paragraph tags", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :minimum => 4 )
+    # expect(page).to have_tag("p", :minimum => 4 )
+    p_count = all("p").count
+    expect(p_count).to be >= 4,
+      "Expected page to have at least four <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -179,7 +218,10 @@ describe "The home page" do
   it "has at least 5 paragraph tags", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :minimum => 5 )
+    # expect(page).to have_tag("p", :minimum => 5 )
+    p_count = all("p").count
+    expect(p_count).to be >= 5,
+      "Expected page to have at least five <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -187,7 +229,10 @@ describe "The home page" do
   it "has at least 6 paragraph tags", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :minimum => 6 )
+    # expect(page).to have_tag("p", :minimum => 6 )
+    p_count = all("p").count
+    expect(p_count).to be >= 6,
+      "Expected page to have at least six <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -195,7 +240,10 @@ describe "The home page" do
   it "has at least 7 paragraph tags", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :minimum => 7 )
+    # expect(page).to have_tag("p", :minimum => 7 )
+    p_count = all("p").count
+    expect(p_count).to be >= 7,
+      "Expected page to have at least seven <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -203,7 +251,10 @@ describe "The home page" do
   it "has at most 8 paragraph tags", :points => 1 do
     visit "/"
     
-    expect(page).to have_tag("p", :count => 8 )
+    p_count = all("p").count
+
+    expect(p_count).to eq(8),
+      "Expected page to have exactly eight <p>'s, but found #{p_count} instead."
   end
 end
 
@@ -215,7 +266,9 @@ describe "The home page" do
     " variants) is a hand game usually played between two people, in which" +
     " each player simultaneously forms one of three shapes with an outstretched hand."
 
-    expect(page).to have_tag("p", :seen => text, :count => 1 )
+    # expect(page).to have_tag("p", :seen => text, :count => 1 )
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'Rock-paper-scissors (also known as...', but didn't find one."
   end
 end
 
@@ -225,12 +278,13 @@ describe "The home page" do
     
     text = "These shapes are:"
 
-    expect(page).to have_tag("p", :seen => text, :count => 1 )
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'These shapes are:', but didn't find one."
   end
 end
 
 describe "The home page" do
-  it "has a unordered list", :points => 1 do
+  it "has one unordered list", :points => 1 do
     visit "/"
 
     expect(page).to have_tag("ul", :count => 1 )
@@ -254,9 +308,10 @@ describe "The home page" do
   it "has a paragraph with text: 'A player who decides...' ", :points => 1 do
     visit "/"
 
-    text = /A player who decides to play rock will beat another player who has chosen scissors ("rock crushes scissors" or sometimes "blunts scissors"), but will lose to one who has played paper ("paper covers rock"); a play of paper will lose to a play of scissors ("scissors cut[s] paper"). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./
+    text = /A player who decides to play rock will beat another player who has chosen scissors \("rock crushes scissors" or sometimes "blunts scissors"\), but will lose to one who has played paper \("paper covers rock"\); a play of paper will lose to a play of scissors \("scissors cut\[s\] paper"\). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./i
     
-    expect(page).to have_tag("p", :seen => text)
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'A player who decides..', but didn't find one."
   end
 end
 
@@ -264,7 +319,9 @@ describe "The home page" do
   it "has one table element ", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("table", :count => 1)
+    table_count = all("table").count
+    expect(table_count).to eq(1),
+      "Expected page to have one table element, but found #{table_count} instead."
   end
 end
 
@@ -272,7 +329,10 @@ describe "The home page" do
   it "has one table element with a border of 1", :points => 1 do
     visit "/"
 
-    expect(page).to have_tag("table", :with => { :border => 1 } )
+    table = find("table")
+
+    expect(table[:border]).to eq("1"),
+      "Expected table to have a border attribute equal to '1', but wasn't."
   end
 end
 
@@ -551,7 +611,8 @@ describe "The home page" do
 
     text = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"./i
     
-    expect(page).to have_tag("p", :seen => text)
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'Originating from China...', but didn't find one."
   end
 end
 
@@ -561,7 +622,8 @@ describe "The home page" do
     
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
     
-    expect(page).to have_tag("img", :with => { :src => image})
+    expect { find("img[src*='#{image}']")}.to_not raise_error,
+      "Expected page to have an <img> tag with an 'src' attribute with the value of #{image}, but didn't find one."
   end
 end
 
@@ -571,21 +633,8 @@ describe "The home page" do
     
     text = /A chart showing how the three game elements interact/i
     
-    expect(page).to have_tag("p", :seen => text)
-  end
-end
-
-describe "The home page" do
-  it "has a div with the rock paper scissors image and paragraph with text: 'A chart showing how...' inside", :points => 5 do
-    visit "/"
-    
-    text = /A chart showing how the three game elements interact/i
-    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
-    
-    expect(page).to have_tag("div") do
-      with_tag("img", :with => { :src => image } )
-      with_tag("p", :seen => text )
-    end
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'A chart showing...', but didn't find one."
   end
 end
 
@@ -595,7 +644,8 @@ describe "The home page" do
     
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
     
-    expect(page).to have_tag("img", :with => { :src => image})
+    expect { find("img[src='#{image}']") }.to_not raise_error,
+      "Expected page to have an <img> with a src attribute of '#{image}', but didn't find one."
   end
 end
 
@@ -605,21 +655,8 @@ describe "The home page" do
     
     text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/i
     
-    expect(page).to have_tag("p", :seen => text)
-  end
-end
-
-describe "The home page" do
-  it "has a div with the kistune-ken image and paragraph with text: 'Kitsune-ken was a...' inside", :points => 5 do
-    visit "/"
-    
-    text = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/i
-    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
-    
-    expect(page).to have_tag("div") do
-      with_tag("img", :with => { :src => image } )
-      with_tag("p", :seen => text )
-    end
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected page to have an <p> with the text 'Kitsune-ken was a...', but didn't find one."
   end
 end
 
@@ -629,7 +666,8 @@ describe "The home page" do
     
     image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
     
-    expect(page).to have_tag("img", :with => { :src => image})
+    expect { find("img[src='#{image}']") }.to_not raise_error,
+      "Expected page to have an <img> with a src attribute of '#{image}', but didn't find one."
   end
 end
 
@@ -638,139 +676,92 @@ describe "The home page" do
     visit "/"
     
     text = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
-    
-    expect(page).to have_tag("p", :seen => text)
+    expect { find("p", :text => text) }.to_not raise_error,
+      "Expected to find <p> tag with text 'Mushi-ken, the earliest Japanese sansukumi-ken game (1809). From left to right: slug (namekuji), frog (kawazu) and snake (hebi).', but didn't find one"
   end
 end
 
-describe "The home page" do
-  it "has a div with the Japanese sansukumi-ken image and paragraph with text: 'Mushi-ken, the earliest...' inside", :points => 5 do
+describe "The home page", :js => true do
+  it "has all the elements in the right order.", :points => 3 do
     visit "/"
     
-    text = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
-    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+
+    play_rock_link = find("a", :text => /Play Rock/)
+    play_paper_link = find("a", :text => /Play Paper/)
+    play_scissors_link = find("a", :text => /Play Scissors/i)
     
-    expect(page).to have_tag("div") do
-      with_tag("img", :with => { :src => image } )
-      with_tag("p", :seen => text )
-    end
-  end
-end
-
-describe "The home page" do
-  it "has all the elements in the right order.", :points => 1 do
-    visit "/"
+    expect(play_paper_link).to be_below(play_rock_link)
     
-    text = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
-    image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+    expect(play_scissors_link).to be_below(play_paper_link)
     
-    expect(page).to have_tag("html > body") do
+    welcome = find("h1", :text => /Welcome to Rock-Paper-Scissors/i)
+    
+    expect(welcome).to be_below(play_scissors_link)
+    
+    wikipedia_link = find("a", :text => /Wikipedia/i)
+    
+    expect(wikipedia_link).to be_below(welcome)
+    
+    rock_paper_scissors = /Rock-paper-scissors \(also known as paper, scissors, stone or other variants\) is a hand game usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand/i
+    
+    rps_paragraph = find("p", :text => rock_paper_scissors)
+    
+    expect(rps_paragraph).to be_below(wikipedia_link)
+    
+    these_shapes_are = /These shapes are/i
+    these_shapes_are_paragraph = find("p", :text => these_shapes_are)
+    
+    expect(these_shapes_are_paragraph).to be_below(rps_paragraph)
+    
+    shapes_list = find("ul", :text => /"rock" \(a closed fist\)/i)
+    
+    expect(shapes_list).to be_below(these_shapes_are_paragraph)
+    
+    a_player_who_decides = /A player who decides to play rock will beat another player who has chosen scissors \("rock crushes scissors" or sometimes "blunts scissors"\), but will lose to one who has played paper \("paper covers rock"\); a play of paper will lose to a play of scissors \("scissors cut\[s\] paper"\). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./i
+    a_player_who_decides_paragraph = find("p", :text => a_player_who_decides)
+    
+    expect(a_player_who_decides_paragraph).to be_below(shapes_list)
+    
+    table = find("table")
 
-      with_tag("div:first-child") {
-        with_tag("a", :with => { :href => "/rock" }, :seen => /Play Rock/i)
-      }
-      with_tag("div:nth-child(2)") {
-        with_tag("a", :with => { :href => "/paper" }, :seen => /Play Paper/i)
-      }
-      with_tag("div:nth-child(3)") {
-        with_tag("a", :with => { :href => "/scissors" }, :seen => /Play Scissors/i)
-      }
- 
-      with_tag("div:nth-child(3) + h1", :seen => /Welcome to Rock-Paper-Scissors/i)
+    expect(table).to be_below(a_player_who_decides_paragraph)
+    
+    origination_from_china = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"/i
+    
+    origination_paragraph = find("p", :text => origination_from_china)
 
-      with_tag("h1 + p:first-of-type", :seen => /From Wikipedia/i ) { 
-        have_link("Wikipedia", :href => /wikipedia.org/) 
-        with_tag("a", :with => { :target => "_blank" }, :seen => /Wikipedia/i)
-      }
+    expect(origination_paragraph).to be_below(table)
+    
+    rock_paper_scissors_svg = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
+    
+    rps_svg = find("img[src*='#{rock_paper_scissors_svg}']")
+    
+    expect(rps_svg).to be_below(origination_paragraph)
+    
+    a_chart_showing = /A chart showing how the three game elements interact/i
+    a_chart_showing_paragraph = find("p", :text => a_chart_showing)
 
-          
-      rock_paper_scissors = /Rock-paper-scissors \(also known as paper, scissors, stone or other variants\) is a hand game usually played between two people, in which each player simultaneously forms one of three shapes with an outstretched hand/i
+    expect(a_chart_showing_paragraph).to be_below(rps_svg)
+    
+    kistune_ken = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/i
+    kistune_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
+    
+    kistune_ken_element = find("img[src*='#{kistune_ken_image}'")
+    
+    expect(kistune_ken_element).to be_below(a_chart_showing_paragraph)
+    
+    kistune_ken_text = find("p", :text => kistune_ken)
+    
+    expect(kistune_ken_text).to be_below(kistune_ken_element)
+    
+    mushi_ken = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
+    mushi_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
+    
+    mushi_ken_element = find("img[src*='#{mushi_ken_image}'")
+    
+    expect(mushi_ken_element).to be_below(kistune_ken_text)
 
-      with_tag("p:nth-of-type(2)", :seen => rock_paper_scissors, :count => 1 )
-      these_shapes_are = /These shapes are/i
-
-      with_tag("p:nth-of-type(3)", :seen => these_shapes_are, :count => 1 )
-      
-
-      with_tag("p:nth-of-type(3) + ul", :count => 1 ) do
-        with_tag("li", :count => 3)
-        with_tag("li", :seen => /"rock" \(a closed fist\)/i)
-        with_tag("li", :seen => /"paper" \(a flat hand\)/i)
-        with_tag("li", :seen => /"scissors" \(a fist with the index and middle fingers extended, forming a V\)/i)
-      end
-      
-      
-      a_player_who_decides = /A player who decides to play rock will beat another player who has chosen scissors \("rock crushes scissors" or sometimes "blunts scissors"\), but will lose to one who has played paper \("paper covers rock"\); a play of paper will lose to a play of scissors \("scissors cut\[s\] paper"\). If both players choose the same shape, the game is tied and is usually immediately replayed to break the tie./i
-      
-      with_tag("p:nth-of-type(4)", :seen => a_player_who_decides)
-
-
-      with_tag("p:nth-of-type(4) + table", :with => { :border => 1 } ) do
-      
-        with_tag("tr:first-child") do
-          with_tag("td:first-child", :with => { :rowspan => 2, :colspan => 2 } )
-          with_tag("td:nth-child(2)", :with => { :colspan => 3 }, :text => /and they play/i )
-        end
-  
-        with_tag("tr:nth-child(2)") do
-          with_tag("td:first-child", :text => /Rock/i )
-          with_tag("td:nth-child(2)", :text => /Paper/i )
-          with_tag("td:nth-child(3)", :text => /Scissors/i )
-        end
-  
-        with_tag("tr:nth-child(3)") do
-          with_tag("td:first-child", :with => { :rowspan => 3 }, :text => /If we play/i )
-          with_tag("td:nth-child(2)", :text => /Rock/i)
-          with_tag("td:nth-child(3)", :text => /We tie/i )
-          with_tag("td:nth-child(4)", :text => /We lose/i )
-          with_tag("td:nth-child(5)", :text => /We win/i )
-        end
-        
-        with_tag("tr:nth-child(4)") do
-          with_tag("td:first-child", :text => /Paper/i)
-          with_tag("td:nth-child(2)", :text => /We win/i )
-          with_tag("td:nth-child(3)", :text => /We tie/i )
-          with_tag("td:nth-child(4)", :text => /We lose/i )
-        end
-        
-        with_tag("tr:nth-child(5)") do
-          with_tag("td:first-child", :text => /Scissors/i )
-          with_tag("td:nth-child(2)", :text => /We lose/i )
-          with_tag("td:nth-child(3)", :text => /We win/i )
-          with_tag("td:nth-child(4)", :text => /We tie/i )
-        end
-      end
-      
-      
-      origination_from_china = /Originating from China and Japan, other names for the game in the English-speaking world include roshambo and other orderings of the three items, with "rock" sometimes being called "stone"/i
-      
-      with_tag("p:nth-of-type(5)", :seen => origination_from_china)
-      
-      a_chart_showing = /A chart showing how the three game elements interact/i
-      rock_paper_scissors_svg = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/Rock-paper-scissors.svg/627px-Rock-paper-scissors.svg.png"
-      
-      with_tag("p:nth-of-type(5) + div") do
-        with_tag("img", :with => { :src => rock_paper_scissors_svg } )
-        with_tag("p", :seen => a_chart_showing )
-      end
-      
-          
-      kistune_ken = /Kitsune-ken was a popular Japanese rock–paper–scissors variant/i
-      kistune_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
-      
-      with_tag("div:nth-of-type(5)") do
-        with_tag("img", :with => { :src => kistune_ken_image } )
-        with_tag("p", :seen => kistune_ken )
-      end
-
-      mushi_ken = /Mushi-ken, the earliest Japanese sansukumi-ken game \(1809\). From left to right: slug \(namekuji\), frog \(kawazu\) and snake \(hebi\)/i
-      mushi_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg/640px-Mushi-ken_%28%E8%99%AB%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Kensarae_sumai_zue_%281809%29.jpg"
-      
-      with_tag("div:nth-of-type(6)") do
-        with_tag("img", :with => { :src => mushi_ken_image } )
-        with_tag("p", :seen => mushi_ken )
-      end
-    end
-
+    mushi_ken_text = find("p", :text => mushi_ken)
+    expect(mushi_ken_text).to be_below(mushi_ken_element)
   end
 end

@@ -41,6 +41,21 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+  Capybara.register_driver :chrome do |app|
+    Capybara::Selenium::Driver.new(app, browser: :chrome)
+  end
+  
+  Capybara.register_driver :headless_chrome do |app|
+    capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+      chromeOptions: { args: %w(headless disable-gpu no-sandbox disable-dev-shm-usage) }
+  )
+  
+   Capybara::Selenium::Driver.new app,
+     browser: :chrome,
+     desired_capabilities: capabilities
+  end
+
+  Capybara.javascript_driver = :headless_chrome
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 

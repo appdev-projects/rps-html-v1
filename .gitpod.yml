@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2020-rps-html:latest
+image: jelaniwoods/appdev2020-fall-rps-html
 
 tasks:
   - init: bin/setup
