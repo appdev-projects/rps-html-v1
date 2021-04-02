@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2021-rps-html:spring
+image: jelaniwoods/appdev2021-rps-html:spring-tmp
 
 tasks:
   - init: bin/setup
