@@ -16,7 +16,7 @@ GIT
 
 GIT
   remote: https://github.com/firstdraft/web_git.git
-  revision: abdb3ba3aac2406280c37469f582784c4ad85a42
+  revision: a5106bd2ebf2b470d2a36e1d131e759af76c4e74
   branch: spring2020
   specs:
     web_git (0.1.0)

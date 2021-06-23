@@ -26,10 +26,8 @@ describe "/rock" do
   it "has a meta tag in the head of the page that increases the types of characters we can use.", :points => 1 do
     visit "/rock"
     
-    expect(page).to have_tag("html") do
-      with_tag("head") do
-        with_tag("meta", :with => { :charset => "utf-8" } )
-      end
+    expect(page).to have_tag("head") do
+      with_tag("meta", :with => { :charset => "utf-8" } )
     end
   end
 end
