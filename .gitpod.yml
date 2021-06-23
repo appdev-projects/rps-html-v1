@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2021-rps-html@sha256:805be22ba86b3ce17116f6dfa2f020814b53a58831c6374c0bbe3b2fdb347c6c
+image: jelaniwoods/appdev2021-rps-html@sha256:3624c6e7c958891cb2513c5298b5c1170b6a3b7d4cabd6bac435b3faaf8f6dd3
 
 tasks:
   - init: bin/setup
