@@ -3,5 +3,5 @@
   "editor.tabSize": 2,
   "emmet.includeLanguages": {
     "erb": "html"
-},
+  }
 }
