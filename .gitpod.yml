@@ -1,4 +1,4 @@
-image: jelaniwoods/appdev2021-rps-html@sha256:c548d4b9d7758bf9a1ca30848df06f852a52b4f7be76707cba7e274e44b037a1
+image: jelaniwoods/appdev2021-rps-html@sha256:d89cfb57668cd6d985171c1af152e02cb6906ad3beba397535de44749175889a
 
 tasks:
   - init: bin/setup
@@ -12,5 +12,4 @@ ports:
 vscode:
   extensions:
     - shd101wyy.markdown-preview-enhanced
-    - vortizhe.simple-ruby-erb
     - wingrunr21.vscode-ruby
