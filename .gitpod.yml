@@ -13,6 +13,4 @@ vscode:
   extensions:
     - shd101wyy.markdown-preview-enhanced
     - vortizhe.simple-ruby-erb
-    - CraigMaslowski.erb
-    - Vense.rails-snippets
     - wingrunr21.vscode-ruby
