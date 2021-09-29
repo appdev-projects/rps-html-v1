@@ -43,3 +43,4 @@ package-lock.json
 core.chrome*
 
 .theia/.ltici_apitoken.yml
+.vscode/.ltici_apitoken.yml
