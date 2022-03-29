@@ -9,7 +9,7 @@ describe "/scissors" do
 end
 
 describe "/scissors" do
-  it "has the title 'You played scissors!' ", :points => 1 do
+  it "has the title 'You played scissors!'", :points => 1 do
     visit "/scissors"
 
     expect(page).to have_title(/You played scissors/i)
@@ -51,7 +51,7 @@ describe "/scissors" do
 end
 
 describe "/scissors" do
-  it "has at most four links", :points => 1 do
+  it "has exactly four links", :points => 1 do
     visit "/scissors"
     
     # expect(page).to have_tag("a", { :count => 4 } )
@@ -190,8 +190,8 @@ describe "/scissors", :js => true do
   it "has all elements in the right order", :points => 1 do
     visit "/scissors"
 
-    play_rock_link = find("a", :text => /Play Rock/)
-    play_paper_link = find("a", :text => /Play Paper/)
+    play_rock_link = find("a", :text => /Play Rock/i)
+    play_paper_link = find("a", :text => /Play Paper/i)
     play_scissors_link = find("a", :text => /Play Scissors/i)
 
     expect(play_paper_link).to be_below(play_rock_link)

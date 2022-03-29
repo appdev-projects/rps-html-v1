@@ -1,6 +1,5 @@
 {
   "editor.tabSize": 2,
-  "editor.autoSave": "on",
   "emmet.includeLanguages": {
     "erb": "html"
   },

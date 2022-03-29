@@ -76,7 +76,7 @@ RUN sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ st
 RUN sudo apt-get -y update
 RUN sudo apt-get -y install google-chrome-stable
 # Install Chromedriver
-RUN sudo apt-get -y install google-chrome-stable
+# RUN sudo apt-get -y install google-chrome-stable
 RUN wget https://chromedriver.storage.googleapis.com/2.41/chromedriver_linux64.zip
 RUN unzip chromedriver_linux64.zip
 
@@ -84,8 +84,6 @@ RUN sudo mv chromedriver /usr/bin/chromedriver
 RUN sudo chown root:root /usr/bin/chromedriver
 RUN sudo chmod +x /usr/bin/chromedriver
 
-RUN /bin/bash -l -c "gem install htmlbeautifier"
-RUN /bin/bash -l -c "gem install rufo"
 COPY Gemfile /base-rails/Gemfile
 COPY --chown=gitpod:gitpod Gemfile.lock /base-rails/Gemfile.lock
 RUN /bin/bash -l -c "gem install bundler:2.1.4"

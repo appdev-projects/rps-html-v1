@@ -1,15 +1,16 @@
-image: jelaniwoods/appdev2021-rps-html@sha256:d89cfb57668cd6d985171c1af152e02cb6906ad3beba397535de44749175889a
+image: patrickmckernin/rps-html-spring-22-updates
 
 tasks:
   - init: bin/setup
 ports:
   - port: 3000
     onOpen: open-preview
-  - port: 9515
+  - port: 9500-9999
     onOpen: ignore
 
 
 vscode:
   extensions:
-    - shd101wyy.markdown-preview-enhanced
-    - wingrunr21.vscode-ruby
+    - vortizhe.simple-ruby-erb
+    - mbessey.vscode-rufo
+    - aliariff.vscode-erb-beautify
