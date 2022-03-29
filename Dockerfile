@@ -84,8 +84,6 @@ RUN sudo mv chromedriver /usr/bin/chromedriver
 RUN sudo chown root:root /usr/bin/chromedriver
 RUN sudo chmod +x /usr/bin/chromedriver
 
-RUN /bin/bash -l -c "gem install htmlbeautifier"
-RUN /bin/bash -l -c "gem install rufo"
 COPY Gemfile /base-rails/Gemfile
 COPY --chown=gitpod:gitpod Gemfile.lock /base-rails/Gemfile.lock
 RUN /bin/bash -l -c "gem install bundler:2.1.4"
