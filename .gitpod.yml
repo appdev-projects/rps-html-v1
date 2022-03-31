@@ -1,4 +1,4 @@
-image: patrickmckernin/rps-html-spring-22-updates
+image: jelaniwoods/appdev2022-rps-html
 
 tasks:
   - init: bin/setup
