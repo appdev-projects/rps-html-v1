@@ -9,7 +9,7 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has the title 'Rock-Paper-Scissors Rules' ", :points => 1 do
+  it "has the title 'Rock-Paper-Scissors Rules'", :points => 1 do
     visit "/"
 
     expect(page).to have_title(/Rock-Paper-Scissors Rules/i)
@@ -51,13 +51,13 @@ describe "The home page" do
 end
 
 describe "The home page" do
-  it "has at most four links", :points => 1 do
+  it "has exactly four links", :points => 1 do
     visit "/"
     
     # expect(page).to have_tag("a", { :count => 4 } )
     a_count = all("a").count
     expect(a_count).to eq(4),
-      "Expected page to have at least three <a>'s, but found #{a_count} instead."
+      "Expected page to have exactly 4 <a>'s, but found #{a_count} instead."
   end
 end
 
@@ -686,8 +686,8 @@ describe "The home page", :js => true do
     visit "/"
     
 
-    play_rock_link = find("a", :text => /Play Rock/)
-    play_paper_link = find("a", :text => /Play Paper/)
+    play_rock_link = find("a", :text => /Play Rock/i)
+    play_paper_link = find("a", :text => /Play Paper/i)
     play_scissors_link = find("a", :text => /Play Scissors/i)
     
     expect(play_paper_link).to be_below(play_rock_link)
