@@ -650,7 +650,7 @@ describe "The home page" do
   it "has a paragraph with text: 'Kitsune-ken was a...' ", :points => 1 do
     visit "/"
 
-    text = /Kitsune-ken was a popular Japanese rock-paper-scissors variant/i
+    text = /Kitsune-ken was a popular Japanese rock[--]paper[--]scissors variant/i
 
     expect { find("p", :text => text) }.to_not raise_error,
       "Expected page to have an <p> with the text 'Kitsune-ken was a...', but didn't find one."
@@ -739,7 +739,7 @@ describe "The home page", :js => true do
 
     expect(a_chart_showing_paragraph).to be_below(rps_svg)
 
-    kistune_ken = /Kitsune-ken was a popular Japanese rock-paper-scissors variant/i
+    kistune_ken = /Kitsune-ken was a popular Japanese rock[--]paper[--]scissors variant/i
     kistune_ken_image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg/640px-Kitsune-ken_%28%E7%8B%90%E6%8B%B3%29%2C_Japanese_rock-paper-scissors_variant%2C_from_the_Genyoku_sui_bento_%281774%29.jpg"
 
     kistune_ken_element = find("img[src*='#{kistune_ken_image}'")
