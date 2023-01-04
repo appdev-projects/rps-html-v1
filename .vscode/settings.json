@@ -15,6 +15,9 @@
   "workbench.fontAliasing": "auto",
   "workbench.startupEditor": "none",
   "workbench.tree.renderIndentGuides": "always",
+  "files.associations": {
+    "*.html.erb": "erb"
+  },
   "files.autoSaveDelay": 500,
   "files.exclude": {
 		"**/.git": true,
@@ -38,9 +41,12 @@
 		"editor.formatOnSave": true
   },
   "vscode-erb-beautify.keepBlankLines": 1,
+  "vscode-erb-beautify.bundlerPath": "/home/gitpod/.rvm/ruby-2.7.3/bin/bundler",
+  "vscode-erb-beautify.useBundler": true,
   "ruby.intellisense": false,
   "gitpod.openInStable.neverPrompt": true,
   "redhat.telemetry.enabled": false,
+  "rufo.useBundler": true,
   "emmet.includeLanguages": {
     "erb": "html"
   },
