@@ -44,3 +44,5 @@ core.chrome*
 
 .theia/.ltici_apitoken.yml
 .vscode/.ltici_apitoken.yml
+vendor/bundle/*
+!vendor/bundle/.keep
