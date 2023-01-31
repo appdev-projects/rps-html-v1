@@ -307,13 +307,4 @@ The home page has all the elements in the right order.
 
 
 ---
-#### <sup>1</sup> heroku login
-[<sup>1</sup>]:#1-heroku-login
 
-If `heroku login` does not succeed in logging you in with an `Error: Forbidden` or `IP address mismatch` try
-
-```bash
-heroku login -i
-```
-
-and enter your email and password.
