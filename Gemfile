@@ -30,7 +30,7 @@ gem 'rack-timeout', require: 'rack/timeout/base'
 gem 'sprockets', '< 4'
 gem 'sassc-rails'
 gem 'execjs'
-gem 'therubyracer', platforms: :ruby
+#er', platforms: :ruby
 
 group :development, :test do
   gem 'amazing_print'
