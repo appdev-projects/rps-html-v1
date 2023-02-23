@@ -2,7 +2,7 @@
   "editor.tabSize": 2,
   "editor.acceptSuggestionOnEnter": "off",
   "editor.bracketPairColorization.enabled": false,
-  "editor.cursorSurroundingLines": 8,
+  "editor.cursorSurroundingLines": 4,
   "editor.dragAndDrop": false,
   "editor.guides.bracketPairs": true,
   "editor.linkedEditing": true,
@@ -15,14 +15,11 @@
   "workbench.fontAliasing": "auto",
   "workbench.startupEditor": "none",
   "workbench.tree.renderIndentGuides": "always",
-  "files.associations": {
-    "*.html.erb": "erb"
-  },
   "files.autoSaveDelay": 500,
   "files.exclude": {
 		"**/.git": true,
 		".vscode": true,
-		".bundle": true,
+		".bundle": true
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
@@ -34,20 +31,11 @@
   "html.format.preserveNewLines": true,
   "html.format.templating": true,
   "terminal.integrated.altClickMovesCursor": true,
-  "[erb]":  {
-		"editor.formatOnSave": true
-  },
-  "[ruby]":  {
-		"editor.formatOnSave": true
-  },
   "vscode-erb-beautify.keepBlankLines": 1,
-  "vscode-erb-beautify.bundlerPath": "/home/gitpod/.rvm/ruby-2.7.3/bin/bundler",
-  "vscode-erb-beautify.useBundler": true,
   "ruby.intellisense": false,
   "gitpod.openInStable.neverPrompt": true,
   "redhat.telemetry.enabled": false,
-  "rufo.useBundler": true,
   "emmet.includeLanguages": {
     "erb": "html"
-  },
+  }
 }
