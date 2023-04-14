@@ -128,6 +128,8 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.5.0)
     diffy (3.4.2)
+    dockerfile-rails (1.2.5)
+      rails
     dotenv (2.7.6)
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
@@ -346,6 +348,7 @@ DEPENDENCIES
   byebug
   capybara
   color_namer
+  dockerfile-rails (>= 1.2)
   dotenv-rails
   draft_generators!
   execjs
